@@ -9,9 +9,9 @@ export default function Home() {
   const s = useStore();
   const [v, setV] = useState('');
   const open = s.actions
-    .filter((a) => a.status === 'open' && (s.client === 'All clients' || a.client === s.client))
+    .filter((a) => a.status === 'open')
     .sort((a, b) => b.rank - a.rank);
-  const goals = s.goals.filter((g) => s.client === 'All clients' || g.client === s.client);
+  const goals = s.goals;
   const submit = () => v.trim() && s.startGoal(v.trim());
 
   return (

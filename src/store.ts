@@ -70,7 +70,6 @@ const saGreeting = (): Msg[] => [
 interface Store {
   page: Page;
   theme: 'light' | 'dark';
-  client: string;
   saOpen: boolean;
   saDraft: string;
   demoOpen: boolean;
@@ -84,13 +83,11 @@ interface Store {
   work: WorkItem[];
   goals: Goal[];
   campaigns: Campaign[];
-  autonomy: Record<string, Autonomy>;
-  autonomyScope: string;
+  autonomy: Autonomy;
   toasts: Toast[];
 
   go: (p: Page, focus?: string) => void;
   toggleTheme: () => void;
-  setClient: (c: string) => void;
   openSA: (draft?: string) => void;
   closeSA: () => void;
   toggleDemo: () => void;
@@ -122,8 +119,6 @@ interface Store {
   plusWeek: () => void;
   dismissSuggestion: (goalId: string) => void;
 
-  effectiveAutonomy: (client: string) => Autonomy;
-  setAutonomyScope: (s: string) => void;
   setAutonomy: (patch: Partial<Autonomy>) => void;
   toggleLowRisk: () => void;
   reset: () => void;
@@ -183,7 +178,6 @@ export const useStore = create<Store>((set, get) => {
   return {
     page: 'home',
     theme: 'light',
-    client: 'All clients',
     saOpen: false,
     saDraft: '',
     demoOpen: false,
@@ -192,13 +186,11 @@ export const useStore = create<Store>((set, get) => {
     saMsgs: saGreeting(),
     build: freshBuild(),
     ...initialData(),
-    autonomy: { agency: { ...DEFAULT_AUTONOMY } },
-    autonomyScope: 'agency',
+    autonomy: { ...DEFAULT_AUTONOMY },
     toasts: [],
 
     go: (page, focus) => set({ page, focusAction: focus ?? null, saOpen: page === 'build' ? false : get().saOpen }),
     toggleTheme: () => set((s) => ({ theme: s.theme === 'light' ? 'dark' : 'light' })),
-    setClient: (client) => set({ client }),
     openSA: (draft = '') => set({ saOpen: true, saDraft: draft }),
     closeSA: () => set({ saOpen: false }),
     toggleDemo: () => set((s) => ({ demoOpen: !s.demoOpen })),
@@ -596,7 +588,7 @@ export const useStore = create<Store>((set, get) => {
     simulateDisconnect: () => {
       const s = get();
       if (s.actions.some((a) => a.id === 'bp')) return s.toast('Already simulated. Use Reset demo to run it again.');
-      const aut = s.effectiveAutonomy('Brightpath Health');
+      const aut = s.autonomy;
       const extra: ActionItem[] = [];
       let fixed: AutoFix | null = null;
       if (aut.lowRisk === 'auto-undo') {
@@ -651,16 +643,10 @@ export const useStore = create<Store>((set, get) => {
     dismissSuggestion: (goalId) => set((s) => ({ goals: s.goals.map((g) => (g.id === goalId ? { ...g, suggestion: false } : g)) })),
 
     // ───────────── Autonomy ─────────────
-    effectiveAutonomy: (client) => get().autonomy[client] ?? get().autonomy.agency,
-    setAutonomyScope: (autonomyScope) => set({ autonomyScope }),
-    setAutonomy: (patch) =>
-      set((s) => {
-        const cur = s.autonomy[s.autonomyScope] ?? s.autonomy.agency;
-        return { autonomy: { ...s.autonomy, [s.autonomyScope]: { ...cur, ...patch } } };
-      }),
+    setAutonomy: (patch) => set((s) => ({ autonomy: { ...s.autonomy, ...patch } })),
     toggleLowRisk: () => {
-      const next = get().autonomy.agency.lowRisk === 'auto-undo' ? 'ask' : 'auto-undo';
-      set((s) => ({ autonomy: { ...s.autonomy, agency: { ...s.autonomy.agency, lowRisk: next } } }));
+      const next = get().autonomy.lowRisk === 'auto-undo' ? 'ask' : 'auto-undo';
+      set((s) => ({ autonomy: { ...s.autonomy, lowRisk: next } }));
       get().toast(
         next === 'ask'
           ? 'Low-risk fixes: Ask me. New low-risk issues will wait for your approval.'
@@ -672,7 +658,6 @@ export const useStore = create<Store>((set, get) => {
       clearTimers();
       set({
         page: 'home',
-        client: 'All clients',
         saOpen: false,
         saDraft: '',
         autonomyOpen: false,
@@ -680,8 +665,7 @@ export const useStore = create<Store>((set, get) => {
         saMsgs: saGreeting(),
         build: freshBuild(),
         ...initialData(),
-        autonomy: { agency: { ...DEFAULT_AUTONOMY } },
-        autonomyScope: 'agency',
+        autonomy: { ...DEFAULT_AUTONOMY },
       });
       get().toast('Demo reset');
     },

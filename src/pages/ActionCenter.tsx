@@ -7,11 +7,10 @@ import { Button, Card, GateBadge, Modal, PageHeader, cx } from '../ui';
 export default function ActionCenter() {
   const s = useStore();
   const [confirmAll, setConfirmAll] = useState(false);
-  const inClient = (c: string) => s.client === 'All clients' || c === s.client;
-  const items = s.actions.filter((a) => a.status !== 'dismissed' && inClient(a.client)).sort((a, b) => b.rank - a.rank);
+  const items = s.actions.filter((a) => a.status !== 'dismissed').sort((a, b) => b.rank - a.rank);
   const open = items.filter((a) => a.status === 'open');
-  const fixed = s.autoFixed.filter((f) => inClient(f.client));
-  const watching = s.watching.filter((w) => inClient(w.client));
+  const fixed = s.autoFixed;
+  const watching = s.watching;
   const totalSends = open.reduce((n, a) => n + a.sends, 0);
   const totalCredits = open.reduce((n, a) => n + a.credits, 0);
 

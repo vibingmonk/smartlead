@@ -17,8 +17,8 @@ const STATUS_CLS: Record<string, string> = {
 export function Campaigns() {
   const s = useStore();
   const [tab, setTab] = useState('All');
-  const rows = s.campaigns.filter((c) => (s.client === 'All clients' || c.client === s.client) && (tab === 'All' || c.status === tab));
-  const count = (t: string) => s.campaigns.filter((c) => (s.client === 'All clients' || c.client === s.client) && (t === 'All' || c.status === t)).length;
+  const rows = s.campaigns.filter((c) => tab === 'All' || c.status === tab);
+  const count = (t: string) => s.campaigns.filter((c) => t === 'All' || c.status === t).length;
   return (
     <div className="px-8 py-8">
       <PageHeader title="Email campaigns" subtitle="Manage and track all your outreach campaigns" />
@@ -77,7 +77,7 @@ export function Campaigns() {
 export function Accounts() {
   const s = useStore();
   const simulated = s.actions.some((a) => a.id === 'bp' && a.status === 'open');
-  const rows = MAILBOXES.filter((m) => s.client === 'All clients' || m.client === s.client).map((m) =>
+  const rows = MAILBOXES.map((m) =>
     m.email === 'ops@brightpath-mail.com' && simulated ? { ...m, status: 'Disconnected' as const, sentToday: 0 } : m,
   );
   return (

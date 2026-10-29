@@ -6,7 +6,7 @@ import { Button, Card, GateBadge, PageHeader, ProgressBar, cx } from '../ui';
 
 export default function Goals() {
   const s = useStore();
-  const goals = s.goals.filter((g) => s.client === 'All clients' || g.client === s.client);
+  const goals = s.goals;
   return (
     <div className="mx-auto max-w-[980px] px-8 py-8">
       <PageHeader title="Goals" subtitle="SA owns the outcome, not just the task. It tracks each goal and proposes changes when you drift." />
@@ -18,7 +18,7 @@ export default function Goals() {
         ))}
         {goals.length === 0 && (
           <Card className="p-10 text-center text-sm text-muted">
-            No goals for this client yet.{' '}
+            No goals yet.{' '}
             <button className="font-medium text-primary hover:underline" onClick={() => s.go('home')}>
               Start one
             </button>

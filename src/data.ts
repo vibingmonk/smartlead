@@ -5,11 +5,6 @@ import type {
 // All data is fictional. Agency: Northstar Growth.
 export const AGENCY = 'Northstar Growth';
 
-export const CLIENTS = [
-  'Acme HR', 'Brightpath Health', 'Cobalt Fintech', 'Dune Logistics', 'Evergreen Edu', 'Fjord Analytics',
-  'Granite Legal', 'Harbor Retail', 'Ion Robotics', 'Juniper Travel', 'Keystone Realty', 'Lumen Media',
-];
-
 export const EXAMPLES = [
   'Book 100 webinar registrations for Acme HR',
   '30 meetings for Cobalt Fintech this month',

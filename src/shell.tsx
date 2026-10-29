@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  Activity, Bot, ChevronDown, FlaskConical, Home, Inbox, Lock, Mail, Moon, RotateCcw, Send, Settings, Sparkles, Sun,
+  Activity, Bot, FlaskConical, Home, Inbox, Lock, Mail, Moon, RotateCcw, Send, Settings, Sparkles, Sun,
   Target, Undo2, X, Zap,
 } from 'lucide-react';
-import { AGENCY, CLIENTS } from './data';
+import { AGENCY } from './data';
 import { openCount, useStore } from './store';
 import type { Autonomy, Page } from './types';
 import { Button, ChatThread, Composer, Modal, cx } from './ui';
@@ -21,23 +21,6 @@ export function TopBar() {
       <span className="rounded-md border border-white/25 bg-white/10 px-2 py-0.5 text-[11px] font-medium text-white/90">
         Prototype · mock data
       </span>
-      <div className="mx-2 h-5 w-px bg-white/15" />
-      <label className="flex items-center gap-2 text-xs text-white/70">
-        Client
-        <span className="relative">
-          <select
-            value={s.client}
-            onChange={(e) => s.setClient(e.target.value)}
-            className="appearance-none rounded-md border border-white/20 bg-white/10 py-1 pl-2.5 pr-7 text-xs font-medium text-white outline-none hover:bg-white/15"
-          >
-            <option className="text-black">All clients</option>
-            {CLIENTS.map((c) => (
-              <option key={c} className="text-black">{c}</option>
-            ))}
-          </select>
-          <ChevronDown size={12} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2" />
-        </span>
-      </label>
 
       <div className="ml-auto flex items-center gap-2">
         <div className="relative">
@@ -180,7 +163,7 @@ export function SAPanel() {
 export function DemoPanel() {
   const s = useStore();
   if (!s.demoOpen) return null;
-  const lowRisk = s.autonomy.agency.lowRisk;
+  const lowRisk = s.autonomy.lowRisk;
   const items: [string, () => void][] = [
     ['Start goal: Acme HR webinar', () => s.startGoal('Book 100 webinar registrations for Acme HR')],
     ['Simulate: mailbox disconnects', s.simulateDisconnect],
@@ -241,8 +224,7 @@ function Locked({ label }: { label: string }) {
 
 export function AutonomyModal() {
   const s = useStore();
-  const a: Autonomy = s.autonomy[s.autonomyScope] ?? s.autonomy.agency;
-  const isOverride = s.autonomyScope !== 'agency' && !!s.autonomy[s.autonomyScope];
+  const a: Autonomy = s.autonomy;
   const auto = [
     { v: 'auto-undo' as const, label: 'Auto with undo' },
     { v: 'ask' as const, label: 'Ask me' },
@@ -284,24 +266,6 @@ export function AutonomyModal() {
   ];
   return (
     <Modal open={s.autonomyOpen} onClose={() => s.setAutonomyOpen(false)} title="What SA can do alone" width="max-w-3xl">
-      <div className="px-5 pt-4">
-        <div className="flex items-center gap-3 text-sm">
-          <span className="text-muted">Apply to</span>
-          <select
-            value={s.autonomyScope}
-            onChange={(e) => s.setAutonomyScope(e.target.value)}
-            className="rounded-lg border border-border bg-surface px-2.5 py-1.5 text-sm"
-          >
-            <option value="agency">{AGENCY} (all clients)</option>
-            {CLIENTS.map((c) => (
-              <option key={c} value={c}>Override for {c}</option>
-            ))}
-          </select>
-          {s.autonomyScope !== 'agency' && (
-            <span className="text-xs text-muted">{isOverride ? 'Custom settings for this client' : 'Using agency settings until you change one'}</span>
-          )}
-        </div>
-      </div>
       <div className="p-5">
         <table className="w-full text-sm">
           <thead>
