@@ -267,6 +267,36 @@
     table { min-width: 560px; }
     table.glance { min-width: 0; }
   }
+
+  /* Prototype link */
+  .cta {
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+    background: var(--navy); color: #fff; border-radius: 16px; padding: 28px 32px; margin-bottom: 20px;
+    position: relative; overflow: hidden;
+  }
+  .cta::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 4px;
+    background: linear-gradient(90deg, var(--primary), #a855f7 55%, var(--pink));
+  }
+  .cta-text { flex: 1 1 360px; }
+  .cta h2 { color: #fff; margin: 0 0 6px; }
+  .cta p { color: rgba(255,255,255,0.8); margin: 0; }
+  .cta kbd {
+    display: inline-block; min-width: 20px; padding: 0 6px; border-radius: 5px; text-align: center;
+    background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.25); color: #fff;
+    font: 600 12px/20px inherit; font-family: inherit;
+  }
+  .cta-btn {
+    display: inline-flex; flex-direction: column; align-items: flex-start; gap: 2px;
+    background: #fff; color: var(--navy); border: 0; border-radius: 12px; padding: 12px 18px;
+  }
+  .cta-btn:hover { background: #ede9fe; border: 0; }
+  .cta-btn .label { font-weight: 700; font-size: 15px; color: var(--primary); }
+  .cta-btn .url { font-size: 12.5px; color: var(--muted); font-weight: 500; }
+  @media print {
+    .cta { padding: 16px 18px; border-radius: 10px; break-inside: avoid; }
+    .cta-btn { padding: 8px 12px; }
+  }
 </style>
 </head>
 <body>
@@ -454,6 +484,17 @@
   <li><strong>It's cheap to build and run.</strong> It extends SmartAgents rather than building a new engine. Checks are simple rules, and the AI only runs when something needs attention.</li>
   <li><strong>It builds a moat.</strong> Every approval, edit and undo, plus deliverability data across the whole customer base, teaches SA what works. Competitors can't copy that with better prompts. It must be anonymized and pooled across accounts, so one client's data never shapes another's campaigns.</li>
 </ul>
+</section>
+
+<section class="cta">
+  <div class="cta-text">
+    <h2>See it working</h2>
+    <p>A clickable prototype of the goal-based Smart Assistant. Press <kbd>D</kbd> to open the demo controls (simulate a mailbox disconnect, jump a week ahead).</p>
+  </div>
+  <a class="cta-btn" href="https://smartleadmockup.netlify.app/" target="_blank" rel="noopener">
+    <span class="label">Open the prototype →</span>
+    <span class="url">smartleadmockup.netlify.app</span>
+  </a>
 </section>
 
 <p class="footer">Smart Assistant: From Answering to Operating · Pratik Prakash</p>
