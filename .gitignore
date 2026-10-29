@@ -5,3 +5,5 @@ dist
 # Reference screenshots of the real product stay local
 *.tiff
 *.png
+# Assignment PDF stays local
+*.pdf
