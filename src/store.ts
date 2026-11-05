@@ -627,8 +627,8 @@ export const useStore = create<Store>((set, get) => {
         status: 'at risk',
         daysLeft: 9,
         funnel: [
-          { label: 'sends', value: '1,200' },
-          { label: 'opens', value: '1,050' },
+          { label: 'sends', value: '2,400' },
+          { label: 'unique opens', value: '480' },
           { label: 'replies', value: '58' },
           { label: 'registrations', value: '42' },
         ],

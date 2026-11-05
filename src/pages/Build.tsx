@@ -146,7 +146,7 @@ function Canvas() {
           <Node k="deliver" n={3} agent="Deliverability agent" title={`${b.mailboxes} healthy mailboxes · warmup score 92–98 · 30/day each`} icon={<ShieldCheck size={16} />} status={n.deliver} gate="auto">
             <div className="space-y-1 text-sm text-muted">
               <div>Send window: Tue–Thu 9–11 am, lead's local time</div>
-              <div>Domain: {sc.domain} · SPF, DKIM and DMARC checked</div>
+              <div>Domains: {sc.domain} + {Math.ceil(b.mailboxes / 3) - 1} more · SPF, DKIM and DMARC checked</div>
             </div>
           </Node>
         </>
@@ -391,7 +391,7 @@ function ConfirmModal() {
       : [
           ['Spends', `${fmt(p.credits)} credits to unlock ${fmt(p.leads)} leads`],
           ['Sends', `${fmt(p.sends)} emails over 2 weeks (3 steps)`],
-          ['From', `${b.mailboxes} mailboxes on ${p.sc.domain}, max 30/day each`],
+          ['From', `${b.mailboxes} mailboxes across ${Math.ceil(b.mailboxes / 3)} domains, max 30/day each`],
           ['When', "Tue–Thu 9–11 am, lead's local time"],
           ['Watching', 'Bounce, reply rate, mailbox health, stuck queue'],
         ];

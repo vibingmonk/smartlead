@@ -103,15 +103,15 @@ Submitting a goal opens the **Build view**.
 │ [Option card: Webinar date ...] [Continue]  │  100 registrations                         │
 │                                             │        │                                   │
 │ SA: Building your plan…                     │  ① Prospecting agent   Ready ✓             │
-│   ✓ Found 420 matching leads, picked 400    │        │                                   │
+│   ✓ Found 2,040 matching leads, picked 2,000│        │                                   │
 │   ✓ Drafted 3-step sequence                 │  ② Campaign agent      Ready ✓             │
-│   ✓ Picked 8 healthy mailboxes              │        │                                   │
+│   ✓ Picked 34 healthy mailboxes             │        │                                   │
 │   ✓ Set up monitoring                       │  ③ Deliverability agent Ready ✓            │
 │                                             │        │                                   │
 │ [Next steps chips]                          │  ④ Alert agent         Ready ✓             │
 │ ─────────────────────────────────────────── │                                            │
 │ [Composer: "Change anything…"]              │ ┌──────── Approval bar (sticky) ─────────┐ │
-│                                             │ │ 400 credits · 1,200 sends over 2 weeks │ │
+│                                             │ │ 2,000 credits · 6,000 sends, 2 weeks   │ │
 │                                             │ │ [Edit]   [Approve & launch]            │ │
 │                                             │ └────────────────────────────────────────┘ │
 └─────────────────────────────────────────────┴────────────────────────────────────────────┘
@@ -125,11 +125,11 @@ Submitting a goal opens the **Build view**.
 
 **Step 2: SA builds the plan live.** The chat streams a checklist while the canvas fills top-down. Each canvas node appears as `Planning…` and turns into `Ready ✓` with its content:
 
-1. **Goal node:** "100 registrations by Thu 20 Nov". Underneath, the funnel maths built from Acme HR's last 90 days: *100 registrations ← ~2,500 opens ← 1,200 sends ← 400 leads × 3 steps*. Label it "estimate".
+1. **Goal node:** "100 registrations by Thu 20 Nov". Underneath, the funnel maths built from Acme HR's last 90 days: *100 registrations ← ~1,200 unique opens ← 6,000 sends ← 2,000 leads × 3 steps*. Label it "estimate".
 2. **Prospecting agent:**
-   - "400 HR Directors and VPs of People · SaaS · 200–1,000 employees · US"
+   - "2,000 HR Directors and VPs of People · SaaS · 200–1,000 employees · US"
    - A preview table of 5 sample leads (fake names and companies)
-   - Cost chip: `400 credits`
+   - Cost chip: `2,000 credits`
    - Gate badge: `Needs approval · spend`
 3. **Campaign agent:**
    - A 3-step sequence. Each step is an expandable card with a subject and body, editable inline.
@@ -138,7 +138,7 @@ Submitting a goal opens the **Build view**.
      - Day 6: last call, plus a recording offer
    - Gate badge: `Auto · draft`
 4. **Deliverability agent:**
-   - "8 healthy mailboxes · warmup score 92–98 · 30/day each"
+   - "34 healthy mailboxes · warmup score 92–98 · 30/day each"
    - "Send window: Tue–Thu 9–11 am, lead's local time"
    - Gate badge: `Auto`
 5. **Alert agent:**
@@ -148,7 +148,7 @@ Submitting a goal opens the **Build view**.
 
 **Step 3: approve once.** A sticky **Approval bar** at the bottom of the canvas shows:
 
-- "**400 credits · 1,200 sends over 2 weeks**"
+- "**2,000 credits · 6,000 sends over 2 weeks**"
 - Two gate icons: "spends credits" and "sends email"
 - Buttons: secondary `Edit`, primary **`Approve & launch`**
 
@@ -157,14 +157,14 @@ Clicking it opens **one** confirmation modal that summarises cost and send volum
 **Step 4: after launch.**
 
 - The canvas status chips turn to `Running`.
-- A **"Running as approved"** strip shows green ticks for leads 400/400 · sequence 3 steps · 8 mailboxes · Tue–Thu 9–11 lead-local · 400 credits.
+- A **"Running as approved"** strip shows green ticks for leads 2,000/2,000 · sequence 3 steps · 34 mailboxes · Tue–Thu 9–11 lead-local · 2,000 credits.
 - Chat **Next steps** chips: "Track this goal" (→ Goals), "Show what needs me" (→ Action center), "Watch reply rate weekly".
 - The Active SA work counter goes up by 2 (the campaign and the monitoring).
 
 **Edit loop (Lovable-style).** Before approving, the user can type into the chat:
 
 - **"Make the tone more direct and shorten email 1"** → the Campaign agent node re-renders with the new copy and a yellow "Updated" highlight for 2 seconds. The chat replies: "Shortened email 1 to 62 words and switched to a direct tone."
-- **"Only companies over 500 employees"** → the Prospecting node updates to 260 leads at 260 credits. The funnel recalculates and the approval bar updates. SA warns: "That gets you an estimated 70–80 registrations. Add 2 more mailboxes to keep the goal? (no cost)". Chips: "Add mailboxes" / "Keep as is".
+- **"Only companies over 500 employees"** → the Prospecting node updates to 1,400 leads at 1,400 credits. The funnel recalculates and the approval bar updates. SA warns: "That gets you an estimated 70–80 registrations. Add 2 more mailboxes to keep the goal? (no cost)". Chips: "Add mailboxes" / "Keep as is".
 
 ### 5.3 Action center: fix and approve (semi-autonomous ops)
 
@@ -214,7 +214,7 @@ A list of goal cards, one per active goal. Each card shows:
 
 - **Title:** "Acme HR · 100 webinar registrations by 20 Nov"
 - **Progress bar:** 42 / 100 · *on track* (green) / *at risk* (amber)
-- **Funnel:** 1,200 sends → 1,050 opens → 58 replies → 42 registrations
+- **Funnel:** 2,400 sends → 480 unique opens → 58 replies → 42 registrations
 - **SA weekly suggestion card** (from demo control "+1 week"), e.g.:
   > "You're at 42/100 with 9 days left, which tracks to about 78. Reply rate on step 2 is half of step 1. I'd rewrite step 2 and add 150 leads from the same segment (150 credits). That gets you to roughly 100."
   - Buttons: **Approve changes** (spend gate) / See plan / Not now
